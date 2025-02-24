@@ -1,63 +1,40 @@
 `use strict`;
-// We filter users who have friendName in the friends array
-const getUsersWithFriend = (users, friendName) => {
-  return users.filter(user => user.friends.includes(friendName));
-};
+/** Створи клас Storage, який створюватиме об'єкти для управління складом товарів. Клас очікує лише один аргумент — початковий масив товарів, який записується до створеного об'єкта в приватну властивість items.
 
-const allUsers = [
-  {
-    name: 'Moore Hensley',
-    friends: ['Sharron Pace'],
-  },
-  {
-    name: 'Sharlene Bush',
-    friends: ['Briana Decker', 'Sharron Pace'],
-  },
-  {
-    name: 'Ross Vazquez',
-    friends: ['Marilyn Mcintosh', 'Padilla Garrison', 'Naomi Buckner'],
-  },
-  {
-    name: 'Elma Head',
-    friends: ['Goldie Gentry', 'Aisha Tran'],
-  },
-  {
-    name: 'Carey Barr',
-    friends: ['Jordan Sampson', 'Eddie Strong'],
-  },
-  {
-    name: 'Blackburn Dotson',
-    friends: ['Jacklyn Lucas', 'Linda Chapman'],
-  },
-  {
-    name: 'Sheree Anthony',
-    friends: ['Goldie Gentry', 'Briana Decker'],
-  },
-];
+Оголоси наступні методи класу:
 
-console.log(getUsersWithFriend(allUsers, 'Briana Decker'));
-// [
-//   {
-//     name: "Sharlene Bush",
-//     friends: ["Briana Decker", "Sharron Pace"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+getItems() — повертає масив поточних товарів у приватній властивості items.
+addItem(newItem) — приймає новий товар newItem і додає його до масиву товарів у приватну властивість items об'єкта.
+removeItem(itemToRemove) — приймає рядок з назвою товару itemToRemove і видаляє його з масиву товарів у приватній властивості items об'єкта.
 
-console.log(getUsersWithFriend(allUsers, 'Goldie Gentry'));
-// [
-//   {
-//     name: "Elma Head",
-//     friends: ["Goldie Gentry", "Aisha Tran"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+Візьми код нижче з ініціалізацією екземпляра й викликами методів і встав його після оголошення класу для перевірки коректності роботи. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.*/
 
-console.log(getUsersWithFriend(allUsers, 'Adrian Cross')); // []
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+
+storage.addItem('Droid');
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+
+storage.removeItem('Prolonger');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+
+storage.removeItem('Scaner');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
 // Leave this code for review by your mentor.
+
+/** На що буде звертати увагу ментор при перевірці:
+
+Оголошений клас Storage
+У класі Storage оголошений метод getItems
+У класі Storage оголошений метод addItem
+У класі Storage оголошений метод removeItem
+Властивість items у класі Storage оголошена приватною
+Метод getItems повертає значення приватної властивості items екземпляра класу, який його викликає
+Метод addItem змінює значення приватної властивості items екземпляра класу, який його викликає
+Метод removeItem змінює значення приватної властивості items екземпляра класу, який його викликає
+У результаті виклику new Storage(["Nanitoids", "Prolonger", "Antigravitator"]) значення змінної storage — це об'єкт
+У об’єкта storage немає публічної властивості items
+Перший виклик storage.getItems() одразу після ініціалізації екземпляра повертає масив ["Nanitoids", "Prolonger", "Antigravitator"]
+Другий виклик storage.getItems() після виклику storage.addItem("Droid") повертає масив ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+Третій виклик storage.getItems() після виклику storage.removeItem("Prolonger") повертає масив ["Nanitoids", "Antigravitator", "Droid"]
+Четвертий виклик storage.getItems() після виклику storage.removeItem("Scaner") повертає масив ["Nanitoids", "Antigravitator", "Droid"]*/

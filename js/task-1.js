@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 /**Задача 1. Акаунт користувача
 Перед звільненням розробник зламав вихідний код управління акаунтами користувачів нашого сервісу доставки їжі. Виконай рефакторинг методів об'єкта customer, розставивши відсутні this під час звернення до властивостей об'єкта.
 Використай цей стартовий код і виконай рефакторинг. Після оголошення об'єкта ми додали виклики методів. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.
@@ -10,20 +10,25 @@ const customer = {
   orders: ['Burger', 'Pizza', 'Salad'],
   // Change code below this line
   getBalance() {
-    return balance;
+    return this.balance; //The current balance is returned.
   },
   getDiscount() {
-    return discount;
+    return this.discount; //Returns the discount value
   },
   setDiscount(value) {
-    discount = value;
+    this.discount = value; //Takes the new discount value and updates the discount property of the object using this.discount.
   },
   getOrders() {
-    return orders;
+    return this.orders; //Returns an array of orders, which is located in the orders property of the object.
   },
   addOrder(cost, order) {
-    balance -= cost - cost * discount;
-    orders.push(order);
+    this.balance -=
+      cost -
+      cost *
+        this
+          .discount; /** The amount for the order is calculated taking into account the discount: cost - cost * this.discount.
+This amount is subtracted from the current balance using the -= operator.*/
+    this.orders.push(order); //After updating the balance, the new order is added to the orders array.
   },
   // Change code above this line
 };
@@ -34,18 +39,3 @@ customer.addOrder(5000, 'Steak');
 console.log(customer.getBalance()); // 19750
 console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]
 // Leave this code for review by your mentor.
-
-/** На що буде звертати увагу ментор при перевірці:
-
-Оголошена змінна customer
-Значення змінної customer — це об'єкт із властивостями та методами
-Виклик customer.getDiscount() повертає поточне значення властивості discount
-Виклик customer.setDiscount(0.15) оновлює значення властивості discount
-Виклик customer.getBalance() повертає поточне значення властивості balance.
-Виклик customer.getOrders() повертає поточне значення властивості orders
-Виклик customer.addOrder(5000, "Steak") додає "Steak" у масив значень властивості orders та оновлює баланс
-Метод getBalance об'єкта customer використовує this
-Метод getDiscount об'єкта customer використовує this
-Метод setDiscount об'єкта customer використовує this
-Метод getOrders об'єкта customer використовує this
-Метод addOrder об'єкта customer використовує this*/

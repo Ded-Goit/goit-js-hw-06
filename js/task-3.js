@@ -1,14 +1,32 @@
-`use strict`;
-/** Напиши клас StringBuilder, який приймає один параметр initialValue — довільний рядок, який записується у приватну властивість value об'єкта, що створюється.
+'use strict';
 
-Оголоси наступні методи класу:
-
-getValue() — повертає поточне значення приватної властивості value.
-padEnd(str) — отримує параметр str (рядок) і додає його в кінець значення приватної властивості value об'єкта, який викликає цей метод.
-padStart(str) — отримує параметр str (рядок) і додає його на початок значення приватної властивості value об'єкта, який викликає цей метод.
-padBoth(str) — отримує параметр str (рядок) і додає його на початок і в кінець значення приватної властивості value об'єкта, який викликає цей метод.
-Візьми код нижче з ініціалізацією екземпляра й викликами методів і встав його після оголошення класу для перевірки коректності роботи. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.*/
-
+class StringBuilder {
+  #value;
+  constructor(initialValue) {
+    //When creating an instance of the class, the initial string initialValue is written to the private property #value.
+    this.#value = initialValue;
+  }
+  getValue() {
+    //The method returns the current value of the string, which is stored in #value.
+    return this.#value;
+  }
+  padEnd(str) {
+    /**The method takes the string str and appends it to the end of the current value #value.
+     * The += operator concatenates (appends) the string to the end of the existing one.*/
+    this.#value += str;
+  }
+  padStart(str) {
+    /**The method takes the string str and appends it to the beginning of the current value #value.Here,
+     *  the new string is formed by concatenating: first str, then the current value.*/
+    this.#value = str + this.#value;
+  }
+  padBoth(str) {
+    /**The method calls the padStart and padEnd methods, 
+    thus adding the specified string simultaneously to the beginning and end of the current value.*/
+    this.padStart(str);
+    this.padEnd(str);
+  }
+}
 const builder = new StringBuilder('.');
 console.log(builder.getValue()); // "."
 builder.padStart('^');
@@ -17,24 +35,4 @@ builder.padEnd('^');
 console.log(builder.getValue()); // "^.^"
 builder.padBoth('=');
 console.log(builder.getValue()); // "=^.^="
-//Leave this code for review by your mentor.
-
-/** На що буде звертати увагу ментор при перевірці:
-
-Оголошений клас StringBuilder
-Властивість value у класі StringBuilder оголошена приватною
-У класі StringBuilder оголошений метод getValue
-Метод getValue повертає значення приватної властивості value екземпляра класу, який його викликає
-У класі StringBuilder оголошений метод padEnd
-Метод padEnd змінює значення приватної властивості value екземпляра класу, який його викликає
-У класі StringBuilder оголошений метод padStart
-Метод padStart змінює приватну властивість value екземпляра класу, який його викликає
-У класі StringBuilder оголошений метод padBoth
-Метод padBoth змінює значення приватної властивості value екземпляра класу, який його викликає
-У результаті виклику new StringBuilder(".") значення приватної змінної builder — це об'єкт
-Об'єкт builder не містить публічну властивість value
-Перший виклик builder.getValue() одразу після ініціалізації екземпляра повертає рядок .
-Другий виклик builder.getValue() після виклику builder.padStart("^") повертає рядок ^.
-Третій виклик builder.getValue() після виклику builder.padEnd("^") повертає рядок ^.^
-Четвертий виклик builder.getValue() після виклику builder.padBoth("=") повертає рядок =^.^= */
 //Leave this code for review by your mentor.
